@@ -15,8 +15,8 @@
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <a href="https://ozonecoffee.co.uk">
-                                    <img src="images/ozonelogo-sm.png" width="75" alt="Maizzle">
+                                <a href="@{{ shop.url }}/">
+                                    <img src="@{{ shop.email_logo_url }}" width="75" alt="@{{ shop.name }}">
                                 </a>
                             </td>
                         </tr>
@@ -119,7 +119,7 @@
                                         <td class="w-48 sm:w-16"></td>
                                         <td>
                                             <table class="w-full text-sm sm:text-xs" id="payment-table">
-                                                <td class="uppercase text-black font-bold ">Order #333</td>
+                                                <td class="uppercase text-black font-bold ">Order @{{ name }}</td>
                                                 <tr class="uppercase" style="color: #868484;">
                                                     <td class="w-3/5"
                                                         style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
@@ -133,33 +133,148 @@
                                                         price
                                                     </td>
                                                 </tr>
+                                                {% for line in subtotal_line_items %}
                                                 <tr class="text-black">
                                                     <td class="w-3/5"
                                                         style="border-right: 1px solid #bab8b8; border-bottom: 2px solid #a9a7a7;">
-                                                        <p class="m-0 uppercase tracking-0 font-bold">Costa rica</p>
-                                                        <p class="m-0 text-xs">Weight 1kg, Grind: Chemex</p>
+                                                        <p class="m-0 uppercase tracking-0 font-bold">@{{
+                                                            line.product.title }}</p>
+                                                        <p class="m-0 text-xs">
+
+                                                            {% for option in line.options_with_values %}
+                                                            {% if option.name == "Weight" %}
+                                                            <span>@{{ option.name }}: @{{ option.value }}</span>
+                                                            {% endif %}
+                                                            {% if option.name == "Grind" %}
+                                                            <span>, @{{ option.name }}: @{{ option.value }}</span>
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </p>
+                                                        {% if line.discount_allocations %} {% for
+                                                        discount_allocation in line.discount_allocations %} {% if
+                                                        discount_allocation.discount_application.target_selection
+                                                        != 'all' %}
+                                                        <span class="order-list__item-discount-allocation">
+                                                            <img src="@{{ 'notifications/discounttag.png' | shopify_asset_url }}"
+                                                                width="18" height="18" class="discount-tag-icon" />
+                                                            <span>
+                                                                @{{ discount_allocation.discount_application.title |
+                                                                upcase }} -(@{{ discount_allocation.amount | money }})
+                                                            </span>
+                                                        </span>
+                                                        {% endif %} {% endfor %} {% endif %}
                                                     </td>
                                                     <td class="w-1/5 pl-10 "
                                                         style="border-right: 1px solid #bab8b8; border-bottom: 2px solid #a9a7a7;">
-                                                        1
+                                                        @{{ line.quantity }}
                                                     </td>
                                                     <td class="w-1/5 pl-10" style="border-bottom: 2px solid #a9a7a7;">
-                                                        £60</td>
+                                                        <p class="line-through my-0">
+                                                            {% if line.original_line_price != line.final_line_price
+                                                            %} @{{ line.original_line_price | money }} {% endif %}
+                                                        </p>
+                                                        <p class="my-0">
+                                                            {% if line.final_line_price > 0 %} @{{
+                                                            line.final_line_price | money }} {% else %} Free {%
+                                                            endif %}
+                                                        </p>
+                                                    </td>
                                                 </tr>
+                                                {% endfor %}
+                                                {% assign discount_value = 0 %}
+                                                {% for discount_application in
+                                                discount_applications %}
+                                                {% if
+                                                discount_application.target_selection
+                                                == 'all' %}
+                                                {% assign discount_value =
+                                                discount_application.total_allocated_amount
+                                                %}
+                                                {% endif %}
+                                                {% endfor %}
                                                 <tr class="uppercase" style="color: #868484;">
-                                                    <td class="w-3/5">Subtotal:</td>
-                                                    <td class="w-1/5" style="border-right: 1px solid #bab8b8;"></td>
-                                                    <td class="w-1/5 pl-10">£60.00</td>
+                                                    <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">
+                                                        Subtotal:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
+                                                        @{{ subtotal_price | plus: discount_value |
+                                                        money }}</td>
                                                 </tr>
-                                                <tr class="uppercase">
-                                                    <td class="w-3/5" style="border-top: 1px solid #bab8b8;">
+                                                {% for discount_application in discount_applications %}
+                                                {% if discount_application.target_selection == 'all' %}
+                                                {% capture discount_title %}
+                                                {% if discount_application.title %}
+                                                @{{ discount_application.title | upcase }}
+                                                {% else %}
+                                                Discount
+                                                {% endif %}
+                                                {% endcapture %}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">
+                                                        <span class="order-list__item-discount-allocation">
+                                                            <img src="@{{ 'notifications/discounttag.png' | shopify_asset_url }}"
+                                                                width="18" height="18" class="discount-tag-icon" />
+                                                            <span>
+                                                                Discount: {% if discount_title.size > 0 %} @{{
+                                                                discount_title | strip }}{% endif %}
+                                                            </span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
+                                                        -@{{
+                                                        discount_application.total_allocated_amount | money }}
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% if shipping_price > 0%}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
                                                         Shipping:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        @{{
+                                                        shipping_price | money}}
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if transaction.payment_details.credit_card_company %}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">
+                                                        Payment method:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
+                                                        {% for transaction in transactions %}
+                                                        <img src="@{{ transaction.payment_details.credit_card_company | payment_icon_png_url  }}"
+                                                            class="" height="24"
+                                                            alt="@{{ transaction.payment_details.credit_card_company }}" />
+                                                        {% endfor %}
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if tax_price > 0%}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5" style="border-top: 1px solid #bab8b8;">
+                                                        Taxes:</td>
                                                     <td class="w-1/5"
                                                         style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8;">
                                                     </td>
-                                                    <td class="w-1/5 pl-10" style="border-top: 1px solid #bab8b8;">£3.50
+                                                    <td class="w-1/5 pl-10" style="border-top: 1px solid #bab8b8;">@{{
+                                                        tax_price | money}}
                                                     </td>
                                                 </tr>
+                                                {% endif %}
                                                 <tr class="uppercase text-black font-bold">
                                                     <td class="w-3/5"
                                                         style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8;">
@@ -169,8 +284,33 @@
                                                     </td>
                                                     <td class="w-1/5 pl-10"
                                                         style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8;">
-                                                        £63.50</td>
+                                                        @{{ total_price | money}}
+                                                    </td>
                                                 </tr>
+                                                {% for transaction in transactions %}
+
+                                                {% if transaction.kind == 'refund' %}
+                                                {% if transaction.payment_details.credit_card_company %}
+                                                {% assign refund_method_title =
+                                                transaction.payment_details.credit_card_company %}
+                                                {% else %}
+                                                {% assign refund_method_title = transaction.gateway %}
+                                                {% endif %}
+
+                                                <tr class="subtotal-line">
+                                                    <td class="subtotal-line__title">
+                                                        <span>Refund</span>
+                                                        <br>
+                                                        <small>@{{ refund_method_title | capitalize }}</small>
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="subtotal-line__value">
+                                                        <strong>- @{{ transaction.amount | money }}</strong>
+                                                    </td>
+                                                </tr>
+
+                                                {% endif %}
+                                                {% endfor %}
                                             </table>
                                         </td>
                                         <td class="w-48 sm:w-16"></td>
@@ -234,11 +374,11 @@
                                     <tr>
                                         <td class="w-48 sm:w-16"></td>
                                         <td class="">
-                                            <div class="uppercase text-center sm:text-right">
-                                                <a href="https://example.com"
-                                                    class="inline-block w-450 sm:w-full py-16 text-gray-400 text-md font-normal text-center no-underline bg-black">
+                                            <div class="uppercase">
+                                                <a href="@{{ shop.url }}"
+                                                    class="block py-16 text-gray-400 text-md font-normal text-center no-underline bg-black">
                                                     <!--[if mso]><i style="letter-spacing: 24px; mso-font-width: -100%; mso-text-raise:30px;">&#8202;</i><![endif]-->
-                                                    <span style="mso-text-raise: 16px;">Visit our shop</span>
+                                                    <span style="mso-text-raise: 16px;">Visit our store</span>
                                                     <!--[if mso]><i style="letter-spacing: 24px; mso-font-width: -100%;">&#8202;</i><![endif]-->
                                                 </a>
                                             </div>

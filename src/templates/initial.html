@@ -147,18 +147,48 @@
                                                         £60</td>
                                                 </tr>
                                                 <tr class="uppercase" style="color: #868484;">
-                                                    <td class="w-3/5">Subtotal:</td>
-                                                    <td class="w-1/5" style="border-right: 1px solid #bab8b8;"></td>
-                                                    <td class="w-1/5 pl-10">£60.00</td>
+                                                    <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">
+                                                        Subtotal:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
+                                                        £60.00</td>
                                                 </tr>
-                                                <tr class="uppercase">
-                                                    <td class="w-3/5" style="border-top: 1px solid #bab8b8;">
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">
+                                                        Discount:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
+                                                        £60.00</td>
+                                                </tr>
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
                                                         Shipping:</td>
                                                     <td class="w-1/5"
-                                                        style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8;">
+                                                        style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
                                                     </td>
-                                                    <td class="w-1/5 pl-10" style="border-top: 1px solid #bab8b8;">£3.50
+                                                    <td class="w-1/5 pl-10"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        £3.50
                                                     </td>
+                                                </tr>
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">Payment
+                                                        method:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
+                                                        £60.00</td>
+                                                </tr>
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5">Taxes:</td>
+                                                    <td class="w-1/5" style="border-right: 1px solid #bab8b8;"></td>
+                                                    <td class="w-1/5 pl-10">£60.00</td>
                                                 </tr>
                                                 <tr class="uppercase text-black font-bold">
                                                     <td class="w-3/5"
@@ -219,6 +249,29 @@
                                                     <p>@{{ shipping_address.country_code }}</p>
                                                 </td>
                                             </table>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-48"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td class="">
+                                            <div class="uppercase">
+                                                <a href="@{{ shop.url }}"
+                                                    class="block py-16 text-gray-400 text-md font-normal text-center no-underline bg-black">
+                                                    <!--[if mso]><i style="letter-spacing: 24px; mso-font-width: -100%; mso-text-raise:30px;">&#8202;</i><![endif]-->
+                                                    <span style="mso-text-raise: 16px;">Visit our store</span>
+                                                    <!--[if mso]><i style="letter-spacing: 24px; mso-font-width: -100%;">&#8202;</i><![endif]-->
+                                                </a>
+                                            </div>
                                         </td>
                                         <td class="w-48 sm:w-16"></td>
                                     </tr>
