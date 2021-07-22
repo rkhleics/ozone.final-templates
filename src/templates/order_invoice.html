@@ -30,9 +30,7 @@
                                         <td class="w-48 sm:w-16"></td>
                                         <td>
                                             <p class="m-0 text-black text-md text-center leading-20">
-                                                Additional payment of @{{ order.total_outstanding | money }} is needed
-                                                to
-                                                update your order
+                                                Payment of @{{ order.total_outstanding | money }} is needed
                                             </p>
                                             {% if custom_message != blank %}
                                             <p class="m-0 text-black text-md text-center leading-20">
@@ -244,6 +242,7 @@
                                                     </td>
                                                 </tr>
                                                 {% endif %}
+                                                {% if total_price > total_outstanding %}
                                                 <tr class="uppercase" style="color: #868484;">
                                                     <td class="w-3/5" style="border-top: 1px solid #bab8b8;">
                                                         Updated total:</td>
@@ -276,6 +275,20 @@
                                                         @{{ total_outstanding | money_with_currency }}
                                                     </td>
                                                 </tr>
+                                                {% else %}
+                                                <tr class="uppercase text-black font-bold">
+                                                    <td class="w-3/5"
+                                                        style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8;">
+                                                        Amount to pay:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8; border-right: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10"
+                                                        style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8;">
+                                                        @{{ total_outstanding | money_with_currency }}
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
                                             </table>
                                         </td>
                                         <td class="w-48 sm:w-16"></td>
