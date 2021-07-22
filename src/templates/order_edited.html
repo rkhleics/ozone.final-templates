@@ -24,86 +24,21 @@
                             <td class="h-48"></td>
                         </tr>
                         <tr>
-                            <td class="bg-top bg-no-repeat bg-cover rounded text-left">
-                                <table class="w-full">
-                                    <tr>
-                                        <td class="w-48 sm:w-16"></td>
-                                        <td>
-                                            <h1
-                                                class="text-4xl m-0 text-black uppercase sm:leading-40 text-center tracking-6">
-                                                Thanks for
-                                            </h1>
-                                            <h1
-                                                class="text-4xl m-0 text-black uppercase sm:leading-40 text-center tracking-6">
-                                                Your order
-                                            </h1>
-                                        </td>
-                                        <td class="w-48 sm:w-16"></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="h-48"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table class="w-full">
-                                    <tr>
-                                        <td class="w-48 sm:w-16"></td>
-                                        <td class="h-48" style="border-top: 2px solid grey; color: #efebeb;">1
-                                        </td>
-                                        <td class="w-48 sm:w-16"></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
                             <td>
                                 <table class="w-full">
                                     <tr>
                                         <td class="w-48 sm:w-16"></td>
                                         <td>
                                             <p class="m-0 text-black text-md text-center leading-20">
-                                                Hi there, we’ve
-                                                received your
-                                                order!
+                                                Your order was updated!
                                             </p>
-                                            <div class="leading-12">&zwnj;</div>
+                                            {% if custom_message != blank %}
                                             <p class="m-0 text-black text-md text-center leading-20">
-                                                We’ll be in touch shortly to confirm when your order has been completed
-                                                and provide further details.
+                                                @{{ custom_message }}
                                             </p>
-                                            <div class="leading-12">&zwnj;</div>
-
-                                            <p class="m-0 text-black text-md text-center leading-20">
-                                                Please note, if you have ordered a gift voucher, you will receive this
-                                                as an attachment with your next confirmation
-                                                email.
-                                            </p>
-                                            <div class="leading-12">&zwnj;</div>
-                                            <p class="m-0 text-black text-md text-center leading-20">
-                                                Big love, Ozone x
-                                            </p>
-                                            <p class="m-0 text-black text-md text-center leading-24">
-                                                Ozone x
-                                            </p>
+                                            {% endif %}
                                         </td>
                                         <td class="w-48 sm:w-16"></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <table class="w-full">
-                                    <tr>
-                                        <td class="w-48 sm:w-16"></td>
-                                        <td class="h-48" style="border-bottom: 2px solid grey; color: #efebeb;">1
-                                        </td>
-                                        <td class="w-48 sm:w-16"></td>
-
                                     </tr>
                                 </table>
                             </td>
