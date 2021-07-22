@@ -7,9 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
   <style>
+      /* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
+
       table {
-        border-collapse: collapse;
+        border-spacing: 0 !important;
+        border-collapse: collapse !important;
       }
+      table table table {
+        table-layout: auto;
+      }
+
+      /* What it does: Stops Outlook from adding extra spacing to tables. */
+      table,
+      td {
+        mso-table-lspace: 0pt !important;
+        mso-table-rspace: 0pt !important;
+      }
+
       #payment-table td {
         padding-top: 8px;
         padding-bottom: 8px;
@@ -28,6 +42,7 @@
         font-size: 10px;
         color: #707070;
       }
+      
   </style>
   <!--[if mso]>
   <noscript>
