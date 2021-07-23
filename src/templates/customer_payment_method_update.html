@@ -1,0 +1,167 @@
+<extends src="src/layouts/main.html">
+    <block name="template">
+        <table class="w-full font-sans">
+            <tr>
+                <td align="center" class="sm:px-16">
+                    <table class="w-600 sm:w-full" style="background-color: #efebeb;">
+                        {% capture email_title %}Confirm your payment information{% endcapture %}
+                        {% capture email_greeting %}Hi @{{customer.first_name}} @{{customer.last_name}},{% endcapture %}
+                        {% capture email_body %}
+                        To keep your orders from @{{ shop.name }} active, confirm your payment information.
+                        {% endcapture %}
+
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <a href="@{{ shop.url }}/">
+                                    <img src="@{{ shop.email_logo_url }}" width="75" alt="@{{ shop.name }}">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-48"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                @{{email_title}}
+                                            </p>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                @{{email_greeting}}
+                                            </p>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                {% if custom_message != blank %}
+                                                @{{ custom_message }}
+                                                {% else %}
+                                                @{{email_body}}
+                                                {% endif %}
+                                            </p>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-32"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table class="w-full">
+                                    <tr>
+                                        <td>
+                                            <table class="w-full">
+                                                <tr>
+                                                    <td class="w-48 sm:w-16"></td>
+                                                    <td class="">
+                                                        <div class="uppercase">
+                                                            <a href="@{{ email_confirmation_url  }}"
+                                                                class="block py-16 text-gray-400 text-md font-normal text-center no-underline bg-black">
+                                                                <!--[if mso]><i style="letter-spacing: 24px; mso-font-width: -100%; mso-text-raise:30px;">&#8202;</i><![endif]-->
+                                                                <span style="mso-text-raise: 16px;">Confirm payment
+                                                                    information
+                                                                </span>
+                                                                <!--[if mso]><i style="letter-spacing: 24px; mso-font-width: -100%;">&#8202;</i><![endif]-->
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="w-48 sm:w-16"></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="w-full font-sans">
+            <tr>
+                <td align="center" class="bg-black text-white">
+                    <table class="w-600 sm:w-full">
+                        <tr>
+                            <td class="py-20 sm:py-32">
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <table class="w-full">
+                                                <td class="w-5/12 footer-item align-top" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Useful links
+                                                    </p>
+                                                    <div>
+                                                        <a href=" https://ozonecoffee.co.uk/our-locations/"
+                                                            target=”_blank”>Our
+                                                            Locations</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/our-journal/"
+                                                            target=”_blank”>Our
+                                                            Journal</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/sustinere/"
+                                                            target=”_blank”>Sustinere</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/work-with-us/"
+                                                            target=”_blank”>Work with
+                                                            us</a>
+                                                    </div>
+                                                </td>
+                                                <td class="text-black w-1/12"></td>
+                                                <td class="footer-item align-top w-5/12" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Social
+                                                    </p>
+                                                    <div>
+                                                        <a href="https://www.instagram.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Instagram</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://www.facebook.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Facebook</a>
+                                                    </div>
+                                                    <div><a href="https://www.linkedin.com/company/ozonecoffee/"
+                                                            target=”_blank”>LinkedIn</a>
+                                                    </div>
+                                                </td>
+                                            </table>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </block>
+</extends>
