@@ -198,7 +198,7 @@
                                                                 labels.</li>
                                                             <li class="return-label__instruction-step">
                                                                 {% if return_delivery.carrier_name %}
-                                                                Give the package to {{ return_delivery.carrier_name }}.
+                                                                Give the package to @{{ return_delivery.carrier_name }}.
                                                                 {% else %}
                                                                 Give the package to the carrier identified on the label.
                                                                 {% endif %}
@@ -216,14 +216,14 @@
                                                                 package. Cover or remove any old shipping labels.</li>
                                                             <li class="return-label__instruction-step">
                                                                 {% if return_delivery.carrier_name %}
-                                                                Give the package to {{ return_delivery.carrier_name }}.
+                                                                Give the package to @{{ return_delivery.carrier_name }}.
                                                                 {% else %}
                                                                 Give the package to the carrier identified on the label.
                                                                 {% endif %}
                                                             </li>
                                                             <li class="return-label__instruction-step">
                                                                 Track your return using <a target="_blank"
-                                                                    href="{{ return_delivery.tracking_url) }}"
+                                                                    href="@{{ return_delivery.tracking_url) }}"
                                                                     class="text-black">your
                                                                     tracking
                                                                     number</a> to make sure we get it.
