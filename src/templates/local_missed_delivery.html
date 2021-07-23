@@ -4,10 +4,9 @@
             <tr>
                 <td align="center" class="sm:px-16">
                     <table class="w-600 sm:w-full" style="background-color: #efebeb;">
-                        {% capture email_title %}Your order has been delivered {% endcapture %}
+                        {% capture email_title %}Sorry we missed you {% endcapture %}
                         {% capture email_body %}
-                        Haven’t received your order? <a href="mailto:@{{ shop.email }}" class="text-black">Let us
-                            know</a>.
+                        Hi @{{ customer.first_name }} @{{customer.last_name}}, we weren’t able to deliver your order.
                         {% endcapture %}
                         <tr>
                             <td>
@@ -40,7 +39,9 @@
                                                 @{{email_body}}
                                             </p>
                                             <p class="m-0 text-black text-md text-center leading-20">
-                                                @{{email_emphasis}}
+                                                To schedule another delivery, <a href="mailto:@{{ shop.email }}"
+                                                    class="text-black">contact
+                                                    us</a>.
                                             </p>
                                         </td>
                                         <td class="w-48 sm:w-16"></td>
@@ -96,36 +97,7 @@
                             <td class="h-32"></td>
                         </tr>
                         {% endif %}
-                        {% if fulfillment.tracking_numbers.size > 0 %}
-                        <tr>
-                            <td>
-                                <table class="w-full">
-                                    <tr>
-                                        <td class="w-48 sm:w-16"></td>
-                                        <td>
-                                            <p class="m-0 text-black text-md text-left leading-20">
-                                                {% if fulfillment.tracking_numbers.size == 1 and
-                                                fulfillment.tracking_company and fulfillment.tracking_url %}
-                                                @{{ fulfillment.tracking_company }} tracking number: <a
-                                                    href="@{{ fulfillment.tracking_url }}" class="text-black">@{{
-                                                    fulfillment.tracking_numbers.first }}</a>
-                                                {% elsif fulfillment.tracking_numbers.size == 1 %}
-                                                Tracking number: @{{ fulfillment.tracking_numbers.first }}
-                                                {% else %}
-                                                Tracking numbers:<br />
-                                                {% for tracking_number in fulfillment.tracking_numbers %}
-                                                @{{ tracking_number }}<br />
-                                                {% endfor %}
-                                                {% endif %}
-                                            </p>
-                                        </td>
-                                        <td class="w-48 sm:w-16"></td>
-                                    </tr>
-                                </table>
 
-                            </td>
-                        </tr>
-                        {% endif %}
                         <!-- Table -->
                         <tr>
                             <td class="w-full">
