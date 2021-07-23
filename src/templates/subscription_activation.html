@@ -1,0 +1,297 @@
+<extends src="src/layouts/main.html">
+    <block name="template">
+        <table class="w-full font-sans">
+            <tr>
+
+                <td align="center" class="bg-white sm:px-16">
+                    <table class="w-600 sm:w-full" style="background-color: #efebeb;">
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-top bg-no-repeat bg-cover rounded text-left">
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <h1
+                                                class="text-4xl m-0 text-black uppercase sm:leading-40 text-center tracking-6">
+                                                Subscription
+                                            </h1>
+                                            <div class="leading-20">&zwnj;</div>
+                                            <h1
+                                                class="text-4xl m-0 text-black uppercase sm:leading-40 text-center tracking-6">
+                                                confirmation
+                                            </h1>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-48"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Hi @{{ first_name }} @{{ last_name }},
+                                            </p>
+                                            <div class="leading-12">&zwnj;</div>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Thank you for your purchase.
+                                                Please review your subscription details below.
+                                            </p>
+                                            <div class="leading-12">&zwnj;</div>
+
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                You may manage your subscription by clicking here:
+                                                <a class="manage_subscription_link text-black underline"
+                                                    href="@{{ link }}" target="_blank" rel="noopener noreferrer"
+                                                    title="Manage subscription">Manage subscription</a>
+                                            </p>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-32"></td>
+                        </tr>
+                        <!-- Table -->
+                        <tr>
+                            <td class="w-full">
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <table class="w-full text-sm sm:text-xs" id="payment-table">
+                                                <td class="uppercase text-black font-bold ">
+                                                    SUBSCRIPTIONS DETAILS
+                                                </td>
+                                                {% if order_number %}
+                                                <td class="uppercase text-black font-bold ">Order @{{ order_number }}
+                                                </td>
+                                                {% endif %}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        product
+                                                    </td>
+                                                    <td class="w-1/5 pl-10 sm:pl-0 sm:text-center"
+                                                        style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        price
+                                                    </td>
+                                                </tr>
+                                                {% for item in line_items %}
+                                                <tr class="text-black">
+                                                    <td class="w-3/5 " style="border-bottom: 2px solid #a9a7a7;">
+                                                        <p class="m-0 uppercase tracking-0 font-bold">{{
+                                                            item.product_title }}</p>
+                                                        {% if item.charge_interval_frequency | int > 1 %}
+                                                        <div class="text-xs">
+                                                            <div>
+                                                                Charges every @{{ item.charge_interval_frequency }} @{{
+                                                                item.order_interval_unit | lower }}s
+                                                            </div>
+                                                            {% else %}
+                                                            <div>Charges every @{{ item.order_interval_unit | lower }}
+                                                            </div>
+                                                            {% endif %} {% if item.future_changes %} {% if
+                                                            item.future_changes.recurring_price %} {% if
+                                                            item.future_changes.recurring_price | float > item.price |
+                                                            float
+                                                            %}
+                                                            <div>
+                                                                Price increase to @{{
+                                                                item.future_changes.recurring_price |
+                                                                money_with_currency(store.id) }} on {% if
+                                                                item['future_changes']['order_number_to_apply'] %}@{{
+                                                                "%d%s"%(item['future_changes']['order_number_to_apply'],{1:"st",2:"nd",3:"rd"}.get(item['future_changes']['order_number_to_apply']
+                                                                if item['future_changes']['order_number_to_apply'] <20
+                                                                    else
+                                                                    item['future_changes']['order_number_to_apply']%10,"th"))
+                                                                    }}{% else %}1st{% endif %} charge </div>
+                                                                    {% else %}
+                                                                    <div>
+                                                                        Price decrease to @{{
+                                                                        item.future_changes.recurring_price |
+                                                                        money_with_currency(store.id) }} on {% if
+                                                                        item['future_changes']['order_number_to_apply']
+                                                                        %}@{{
+                                                                        "%d%s"%(item['future_changes']['order_number_to_apply'],{1:"st",2:"nd",3:"rd"}.get(item['future_changes']['order_number_to_apply']
+                                                                        if
+                                                                        item['future_changes']['order_number_to_apply']
+                                                                        <20 else
+                                                                            item['future_changes']['order_number_to_apply']%10,"th"))
+                                                                            }}{% else %}1st{% endif %} charge </div>
+                                                                            {% endif %} {% endif %} {% endif %} {% if
+                                                                            item.next_charge_date %}
+                                                                            <div>Next charge on @{{
+                                                                                item.next_charge_date }}
+                                                                            </div>
+                                                                            {% endif %} {% if
+                                                                            item.number_charges_until_expiration %}
+                                                                            <div>
+                                                                                Expires after @{{
+                                                                                item.number_charges_until_expiration }}
+                                                                                {%
+                                                                                if
+                                                                                item.number_charges_until_expiration |
+                                                                                int
+                                                                                == 1 %} Charge {%
+                                                                                else %} Charges {% endif %}
+                                                                            </div>
+                                                                    </div>
+                                                                    {% endif %}
+                                                    </td>
+                                                    <td class="w-1/5 pl-10 "
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 2px solid #a9a7a7;">
+
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 2px solid #a9a7a7;">
+                                                        @{{ item.price | money_with_currency(store.id) }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">
+                                                        Subtotal:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
+                                                        @{{ subtotal_price | money_with_currency(store.id)}}</td>
+                                                </tr>
+                                                {% if total_shipping > 0 %}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        Shipping:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        @{{ total_shipping | money_with_currency(store.id) }}
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if total_tax > 0 %}
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5">Taxes:</td>
+                                                    <td class="w-1/5" style="border-right: 1px solid #bab8b8;"></td>
+                                                    <td class="w-1/5 pl-10">£60.00</td>
+                                                </tr>
+                                                {% endif %}
+                                                <tr class="uppercase text-black font-bold">
+                                                    <td class="w-3/5"
+                                                        style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8;">
+                                                        Total:</td>
+                                                    <td class="w-1/5"
+                                                        style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8; border-right: 1px solid #bab8b8;">
+                                                    </td>
+                                                    <td class="w-1/5 pl-10"
+                                                        style="border-top: 2px solid #a9a7a7; border-bottom: 1px solid #bab8b8;">
+                                                        @{{ total_price | money_with_currency(store.id) }}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="w-full font-sans">
+            <tr>
+                <td align="center" class="bg-black text-white">
+                    <table class="w-600 sm:w-full">
+                        <tr>
+                            <td class="py-20 sm:py-32">
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <table class="w-full">
+                                                <td class="w-5/12 footer-item align-top" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Useful links
+                                                    </p>
+                                                    <div>
+                                                        <a href=" https://ozonecoffee.co.uk/our-locations/"
+                                                            target=”_blank”>Our
+                                                            Locations</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/our-journal/"
+                                                            target=”_blank”>Our
+                                                            Journal</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/sustinere/"
+                                                            target=”_blank”>Sustinere</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/work-with-us/"
+                                                            target=”_blank”>Work with
+                                                            us</a>
+                                                    </div>
+                                                </td>
+                                                <td class="text-black w-1/12"></td>
+                                                <td class="footer-item align-top w-5/12" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Social
+                                                    </p>
+                                                    <div>
+                                                        <a href="https://www.instagram.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Instagram</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://www.facebook.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Facebook</a>
+                                                    </div>
+                                                    <div><a href="https://www.linkedin.com/company/ozonecoffee/"
+                                                            target=”_blank”>LinkedIn</a>
+                                                    </div>
+                                                </td>
+                                            </table>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </block>
+</extends>
