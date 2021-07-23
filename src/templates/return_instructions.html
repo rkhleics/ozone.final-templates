@@ -1,0 +1,324 @@
+<extends src="src/layouts/main.html">
+    <block name="template">
+        <table class="w-full font-sans">
+            <tr>
+                <td align="center" class="sm:px-16">
+                    <table class="w-600 sm:w-full" style="background-color: #efebeb;">
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <a href="@{{ shop.url }}/">
+                                    <img src="@{{ shop.email_logo_url }}" width="75" alt="@{{ shop.name }}">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-48"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            {% for return_delivery in return.deliveries %}
+                                            {% if return_delivery.type == 'shopify_label' %}
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Your return shipping label is ready. Print your return shipping label
+                                                and
+                                                attach it to the package containing your return items
+                                            </p>
+
+                                            <table class="row actions">
+                                                <tr>
+                                                    <td class="empty-line"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="actions__cell">
+                                                        <table class="button main-action-cell">
+                                                            <tr>
+                                                                <td class="button__cell"><a
+                                                                        href="@{{ return_delivery.return_label.public_file_url }}"
+                                                                        class="button__text text-black">Print return
+                                                                        label</a></td>
+                                                            </tr>
+                                                        </table>
+                                                        <table class="link secondary-action-cell">
+                                                            <tr>
+                                                                <td class="link__cell">or <a target="_blank"
+                                                                        href="@{{ order.order_status_url }}"
+                                                                        class="text-black">View your
+                                                                        order</a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            {% elsif return_delivery.type == 'manual' %}
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Complete your return. We’ve sent you a return
+                                                shipping label, or you will receive one soon.</b>
+                                                Once you receive your return shipping label, get your returned items and
+                                                follow the instructions to complete your return.
+                                            </p>
+                                            {% endif %}
+                                            {% endfor %}
+
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-32"></td>
+                        </tr>
+
+                        <!-- Table -->
+                        <tr>
+                            <td class="w-full">
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <table class="w-full text-sm sm:text-xs" id="payment-table">
+                                                <td class="uppercase text-black font-bold ">Order @{{ order.name }}</td>
+                                                <tr>
+                                                    <td>
+                                                        <h3 class="m-0 text-black text-md text-left leading-20">
+                                                            Returned items
+                                                        </h3>
+                                                    </td>
+                                                </tr>
+                                                <tr class="uppercase" style="color: #868484;">
+                                                    <td class="w-3/5"
+                                                        style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        product
+                                                    </td>
+                                                    <td class="w-1/5 pl-10 sm:pl-0 sm:text-center"
+                                                        style="border-right: 1px solid #bab8b8; border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        quantity</td>
+                                                    <td class="w-1/5 pl-10"
+                                                        style="border-top: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
+                                                        price
+                                                    </td>
+                                                </tr>
+                                                {% for line_item in return.line_items %}
+                                                <tr class="text-black">
+                                                    <td class="w-3/5"
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 2px solid #a9a7a7;">
+                                                        <p class="m-0 uppercase tracking-0 font-bold">@{{
+                                                            line_item.product.title }}</p>
+                                                        <p class="m-0 text-xs">
+
+                                                            {% for option in line_item.options_with_values %}
+                                                            {% if option.name == "Weight" %}
+                                                            <span>@{{ option.name }}: @{{ option.value }}</span>
+                                                            {% endif %}
+                                                            {% if option.name == "Grind" %}
+                                                            <span>, @{{ option.name }}: @{{ option.value }}</span>
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </p>
+                                                        {% if line_item.discount_allocations %} {% for
+                                                        discount_allocation in line_item.discount_allocations %} {% if
+                                                        discount_allocation.discount_application.target_selection
+                                                        != 'all' %}
+                                                        <span class="order-list__item-discount-allocation">
+                                                            <img src="@{{ 'notifications/discounttag.png' | shopify_asset_url }}"
+                                                                width="18" height="18" class="discount-tag-icon" />
+                                                            <span>
+                                                                @{{ discount_allocation.discount_application.title |
+                                                                upcase }} -(@{{ discount_allocation.amount | money }})
+                                                            </span>
+                                                        </span>
+                                                        {% endif %} {% endfor %} {% endif %}
+                                                    </td>
+                                                    <td class="w-1/5 pl-10 "
+                                                        style="border-right: 1px solid #bab8b8; border-bottom: 2px solid #a9a7a7;">
+                                                        @{{ line_item.quantity }}
+                                                    </td>
+                                                    <td class="w-1/5 pl-10" style="border-bottom: 2px solid #a9a7a7;">
+                                                        <p class="line-through my-0">
+                                                            {% if line_item.original_line_price !=
+                                                            line_item.final_line_price
+                                                            %} @{{ line_item.original_line_price | money }} {% endif %}
+                                                        </p>
+                                                        <p class="my-0">
+                                                            {% if line_item.final_line_price > 0 %} @{{
+                                                            line_item.final_line_price | money }} {% else %} Free {%
+                                                            endif %}
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-32"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table class="w-full text-sm sm:text-xs">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+
+                                            <h3 class="m-0 text-black text-md text-left leading-20">
+                                                Instructions
+                                            </h3>
+                                            <table class="w-full">
+                                                <tr>
+                                                    <td>
+                                                        {% for return_delivery in return.deliveries %}
+                                                        <ol class="pl-16">
+                                                            <li class="return-label__instruction-step">Pack the items
+                                                                you're
+                                                                returning.</li>
+
+                                                            {% if return_delivery.type == 'shopify_label' %}
+                                                            <li class="return-label__instruction-step">Print your return
+                                                                shipping
+                                                                label and attach it to the package. Cover or remove any
+                                                                old
+                                                                shipping
+                                                                labels.</li>
+                                                            <li class="return-label__instruction-step">
+                                                                {% if return_delivery.carrier_name %}
+                                                                Give the package to {{ return_delivery.carrier_name }}.
+                                                                {% else %}
+                                                                Give the package to the carrier identified on the label.
+                                                                {% endif %}
+                                                            </li>
+                                                            {% elsif return_delivery.type == 'manual' %}
+                                                            <li class="return-label__instruction-step">Print your return
+                                                                shipping
+                                                                label. If you haven’t received it yet, we’ll send it to
+                                                                you
+                                                                soon.
+                                                            </li>
+                                                            <li class="return-label__instruction-step">Attach the label
+                                                                to
+                                                                the
+                                                                package. Cover or remove any old shipping labels.</li>
+                                                            <li class="return-label__instruction-step">
+                                                                {% if return_delivery.carrier_name %}
+                                                                Give the package to {{ return_delivery.carrier_name }}.
+                                                                {% else %}
+                                                                Give the package to the carrier identified on the label.
+                                                                {% endif %}
+                                                            </li>
+                                                            <li class="return-label__instruction-step">
+                                                                Track your return using <a target="_blank"
+                                                                    href="{{ return_delivery.tracking_url) }}"
+                                                                    class="text-black">your
+                                                                    tracking
+                                                                    number</a> to make sure we get it.
+                                                            </li>
+                                                            {% endif %}
+
+                                                        </ol>
+                                                        {% endfor %}
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="w-full font-sans">
+            <tr>
+                <td align="center" class="bg-black text-white">
+                    <table class="w-600 sm:w-full">
+                        <tr>
+                            <td class="py-20 sm:py-32">
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <table class="w-full">
+                                                <td class="w-5/12 footer-item align-top" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Useful links
+                                                    </p>
+                                                    <div>
+                                                        <a href=" https://ozonecoffee.co.uk/our-locations/"
+                                                            target=”_blank”>Our
+                                                            Locations</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/our-journal/"
+                                                            target=”_blank”>Our
+                                                            Journal</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/sustinere/"
+                                                            target=”_blank”>Sustinere</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/work-with-us/"
+                                                            target=”_blank”>Work with
+                                                            us</a>
+                                                    </div>
+                                                </td>
+                                                <td class="text-black w-1/12"></td>
+                                                <td class="footer-item align-top w-5/12" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Social
+                                                    </p>
+                                                    <div>
+                                                        <a href="https://www.instagram.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Instagram</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://www.facebook.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Facebook</a>
+                                                    </div>
+                                                    <div><a href="https://www.linkedin.com/company/ozonecoffee/"
+                                                            target=”_blank”>LinkedIn</a>
+                                                    </div>
+                                                </td>
+                                            </table>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </block>
+</extends>
