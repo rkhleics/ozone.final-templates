@@ -139,6 +139,12 @@
                                                 %}
                                                 {% endif %}
                                                 {% endfor %}
+                                                {% assign discounts = parent_order.discounts %}
+                                                {% assign discounts_savings = parent_order.discounts_savings %}
+                                                {% assign subtotal_price = parent_order.subtotal_price %}
+                                                {% assign shipping_price = parent_order.shipping_price %}
+                                                {% assign tax_price = parent_order.tax_price %}
+                                                {% assign total_price = parent_order.total_price %}
                                                 <tr class="uppercase" style="color: #868484;">
                                                     <td class="w-3/5" style="border-bottom: 1px solid #bab8b8;">
                                                         Subtotal:</td>
@@ -149,13 +155,6 @@
                                                         @{{ subtotal_price | plus: discount_value |
                                                         money }}</td>
                                                 </tr>
-                                                {% assign discounts = parent_order.discounts %}
-                                                {% assign discounts_savings = parent_order.discounts_savings %}
-                                                {% assign subtotal_price = parent_order.subtotal_price %}
-                                                {% assign shipping_price = parent_order.shipping_price %}
-                                                {% assign tax_price = parent_order.tax_price %}
-                                                {% assign total_price = parent_order.total_price %}
-
 
                                                 {% assign transactions = parent_transactions %}
                                                 <tr class="uppercase" style="color: #868484;">
