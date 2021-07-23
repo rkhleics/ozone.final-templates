@@ -162,7 +162,7 @@
                                                     {% if discounts %}
                                                     {% capture discount_title %}
                                                     {% if discounts.first.code %}
-                                                    Discount ({{ discounts.first.code }})
+                                                    Discount (@{{ discounts.first.code }})
                                                     {% else %}
                                                     Discount
                                                     {% endif %}
@@ -179,7 +179,7 @@
                                                         style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
                                                     </td>
                                                     <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
-                                                        {{ @discounts_savings | money }}
+                                                        @{{ discounts_savings | money }}
                                                     </td>
                                                 </tr>
                                                 {% endif %}
@@ -371,7 +371,7 @@
                                                     {% if discounts %}
                                                     {% capture discount_title %}
                                                     {% if discounts.first.code %}
-                                                    Discount ({{ discounts.first.code }})
+                                                    Discount (@{{ discounts.first.code }})
                                                     {% else %}
                                                     Discount
                                                     {% endif %}
@@ -388,7 +388,7 @@
                                                         style="border-right: 1px solid #bab8b8; border-bottom: 1px solid #bab8b8;">
                                                     </td>
                                                     <td class="w-1/5 pl-10" style="border-bottom: 1px solid #bab8b8;">
-                                                        {{ @discounts_savings | money }}
+                                                        @{{ discounts_savings | money }}
                                                     </td>
                                                 </tr>
                                                 {% endif %}
