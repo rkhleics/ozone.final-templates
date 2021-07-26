@@ -1,0 +1,141 @@
+<extends src="src/layouts/main.html">
+    <block name="template">
+        <table class="w-full font-sans">
+            <tr>
+
+                <td align="center" class="bg-white sm:px-16">
+                    <table class="w-600 sm:w-full" style="background-color: #efebeb;">
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Hi @{{ first_name }} @{{ last_name }},
+                                            </p>
+                                            <div class="leading-12">&zwnj;</div>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Your subscription from <a
+                                                    href='http://ozonecoffee.myshopify.com'>ozonecoffee</a>
+                                                is set to renew shortly.
+                                            </p>
+                                            {% if sepa_debit_last4 %}
+                                            <div class="leading-12">&zwnj;</div>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                We will debit @{{amount}} from your bank account
+                                                ********@{{sepa_debit_last4}} via SEPA Direct
+                                                Debit with a reference of @{{sepa_debit_mandate_reference}}
+                                            </p>
+                                            {% endif %}
+                                            <div class="leading-12">&zwnj;</div>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                You may manage your subscription by clicking here:
+                                            </p>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                <a class="manage_subscription_link text-black underline"
+                                                    href="@{{ link }}" target="_blank" rel="noopener noreferrer"
+                                                    title="Manage subscription">Manage subscription</a>
+                                            </p>
+                                            <div class="leading-12">&zwnj;</div>
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Please email us at <a
+                                                    href="mailto: support@ozonecoffee.co.uk">support@ozonecoffee.co.uk</a>
+                                                if you
+                                                have any questions about your recurring
+                                                orders.
+                                            </p>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-52"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="leading-32 sm:h-32 bg-white">&zwnj;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="w-full font-sans">
+            <tr>
+                <td align="center" class="bg-black text-white">
+                    <table class="w-600 sm:w-full">
+                        <tr>
+                            <td class="py-20 sm:py-32">
+                                <table class="w-full">
+                                    <tr>
+                                        <td class="w-48 sm:w-16"></td>
+                                        <td>
+                                            <table class="w-full">
+                                                <td class="w-5/12 footer-item align-top" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Useful links
+                                                    </p>
+                                                    <div>
+                                                        <a href=" https://ozonecoffee.co.uk/our-locations/"
+                                                            target=”_blank”>Our
+                                                            Locations</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/our-journal/"
+                                                            target=”_blank”>Our
+                                                            Journal</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/sustinere/"
+                                                            target=”_blank”>Sustinere</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://ozonecoffee.co.uk/work-with-us/"
+                                                            target=”_blank”>Work with
+                                                            us</a>
+                                                    </div>
+                                                </td>
+                                                <td class="text-black w-1/12"></td>
+                                                <td class="footer-item align-top w-5/12" id="address">
+                                                    <p style="border-bottom: 1px solid gray"
+                                                        class="uppercase font-medium pb-4 text-xs">
+                                                        Social
+                                                    </p>
+                                                    <div>
+                                                        <a href="https://www.instagram.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Instagram</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="https://www.facebook.com/ozonecoffeeuk/"
+                                                            target=”_blank”>Facebook</a>
+                                                    </div>
+                                                    <div><a href="https://www.linkedin.com/company/ozonecoffee/"
+                                                            target=”_blank”>LinkedIn</a>
+                                                    </div>
+                                                </td>
+                                            </table>
+                                        </td>
+                                        <td class="w-48 sm:w-16"></td>
+
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </block>
+</extends>
