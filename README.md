@@ -34,6 +34,9 @@ maizzle serve
 maizzle build production
 ```
 
+To generate templates just copy the templates you need from ozone_shopify_templates or ozone_recharge_templates into src/templates/.
+Then run maizzle build production. The generated templates will be created under build_production.
+
 ## Documentation
 
 Maizzle documentation is available at https://maizzle.com
