@@ -52,7 +52,13 @@
                                                 Please review your subscription details below.
                                             </p>
                                             <div class="leading-12">&zwnj;</div>
-
+                                            <p class="m-0 text-black text-md text-center leading-20">
+                                                Please ignore the shipping figure below - you have only been charged for
+                                                the product itself and not delivery. This is
+                                                just a little glitch in the system that will be fixed shortly and
+                                                removed from future emails.
+                                            </p>
+                                            <div class="leading-12">&zwnj;</div>
                                             <p class="m-0 text-black text-md text-center leading-20">
                                                 You may manage your subscription by clicking here:
                                             </p>
@@ -195,7 +201,8 @@
                                                 <tr class="uppercase" style="color: #868484;">
                                                     <td class="w-3/5">Taxes:</td>
                                                     <td class="w-1/5" style="border-right: 1px solid #bab8b8;"></td>
-                                                    <td class="w-1/5 pl-10">£60.00</td>
+                                                    <td class="w-1/5 pl-10">{{ total_tax |
+                                                        money_with_currency(store.id) }}</td>
                                                 </tr>
                                                 {% endif %}
                                                 <tr class="uppercase text-black font-bold">
